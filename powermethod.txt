@@ -12,8 +12,8 @@ In a q session. Go to k
 variables:
 
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
-v:1,1_(#A)#0   / vector 
-vN:(#A)#10     / vector
+v:1,1_(#A)#0   / vector parameter used to compute eigenvalue
+vN:(#A)#10     / vector parameter used to compute eigenvalue
 el: 2          / current eigenvalue
 el2: 1         / previous eigenvalue
 e:0.0000001    / error limit
