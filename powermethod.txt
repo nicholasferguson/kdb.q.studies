@@ -18,7 +18,7 @@ v:0.1,1_(#A)#0   / vector parameter used to compute eigenvalue.  See that initia
 vN:(#A)#10     / vector parameter used to compute eigenvalue. Add code to prevent these values and 'v' from becoming too large.
 el: 2          / current eigenvalue
 el2: 1         / previous eigenvalue
-e:0.0000001    / error limit to test if eigenvalues have converged
+e:0.0000001    / error limit to test if eigenvalues have converged. epsilon.
 ev: (#A)#1     / eigenvectors for this eigenvalue
 iter:1 
 a:1            / boolean eigenvalues converges
