@@ -12,12 +12,12 @@ In a q session. Go to k
 variables:
 
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
-v: 1 0 0
-vN:10 10 10
-el: 1 1 1
+v: (#A)#1;v[0]:1
+vN:(#A)#10
+el: (#A)#1
 el2: 1
 e:0.1
-ev: 1 1 1
+ev: (#A)#1
 iter:1
 
 
@@ -26,5 +26,5 @@ ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 
 ///To do
 1. while loop needs to check if solution converges.  Some matrices do not converge and are not suitable for powermethod.
-2  Clean up code, to allow for a generic size symmetric matrix
+2  Clean up code, to allow for a generic size symmetric matrix (DONE)
 3. Add code to return all eigenvalues eigenvectors.
