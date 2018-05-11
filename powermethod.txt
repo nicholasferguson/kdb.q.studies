@@ -1,0 +1,21 @@
+Example of power method for a 3X3 matrix.
+This returns dominant eigenvalue.
+Instructions:
+In a q session
+(1) copy/paste variables.
+(2) copy/paste while expression.
+(3) Returns eigenvector and eigenvalue for dominant eigenvalue.
+
+
+A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
+v: 1 0 0
+vN:10 10 10
+el: 1 1 1
+el2: 1
+e:0.1
+ev: 1 1 1
+iter:1
+
+
+while[iter < 50; vN:A(+/*)\:v;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;iter+:1];
+ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
