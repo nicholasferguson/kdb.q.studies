@@ -33,5 +33,5 @@ ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 
 1. Add code to return all eigenvalues eigenvectors.
 2. Add error message that this symmetric matrix has not converged by iter max.
-3. Test powermethod on various large symmetric matrix sizes.
+3. Test powermethod on various large symmetric matrix sizes. Ex: 1000x1000
 4. Add code to prevent v and vN from having very large values. i.e. at some stage, v:%vN
