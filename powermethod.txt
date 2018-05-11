@@ -1,11 +1,15 @@
-Initial study of power method for a 3X3 matrix.
-This returns dominant eigenvalue.
+Initial study of power method for a 3X3 matrix that returns dominant eigenvalue/eigenvector
+current restrictions:   3x3 symmetric matrix.  
+						Does not yet check for convergence
+						see below for todo list.
+
 Instructions:
-In a q session
+In a q session. Go to k
 (1) copy/paste variables.
 (2) copy/paste while expression.
 (3) Returns eigenvector and eigenvalue for dominant eigenvalue.
 
+variables:
 
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
 v: 1 0 0
@@ -19,3 +23,8 @@ iter:1
 
 while[iter < 50; vN:A(+/*)\:v;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;iter+:1];
 ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
+
+///To do
+1. while loop needs to check if solution converges.  Some matrices do not converge and are not suitable for powermethod.
+2  Clean up code, to allow for a generic size symmetric matrix
+3. Add code to return all eigenvalues eigenvectors.
