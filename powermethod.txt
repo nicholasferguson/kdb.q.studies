@@ -10,7 +10,7 @@ In a q session. Go to k
 (3) Returns eigenvector and eigenvalue for dominant eigenvalue.
 
 
-Choose a matrix 3X3 or 6x6 
+Choose a matrix 3X3 or 6x6. Dominant eigenvalue and eigenvector for the next two matrices were checked using excel.
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
 A:((7  1  1  7  4  1);(4  4  4  4  4  4);(1  7  7  1  4  7);(7  1  1  7  4  1);(4  4  4  4  4  4);(1  7  7  1  4  7));
 / variables:
