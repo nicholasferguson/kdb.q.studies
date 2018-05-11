@@ -1,5 +1,5 @@
 Initial study of power method for a symmetrix matrix that returns dominant eigenvalue/eigenvector
-current model:   		symmetric matrix.  ( tested only on 3x3 )
+current model:   		symmetric matrix.  ( tested on some symmetric matrices )
 						checks for convergence
 						see below for todo list.
 
@@ -9,9 +9,11 @@ In a q session. Go to k
 (2) copy/paste while expression.
 (3) Returns eigenvector and eigenvalue for dominant eigenvalue.
 
-variables:
 
+Choose a matrix 3X3 or 6X6
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
+
+/ variables:
 v:1,1_(#A)#0   / vector parameter used to compute eigenvalue
 vN:(#A)#10     / vector parameter used to compute eigenvalue
 el: 2          / current eigenvalue
@@ -21,14 +23,14 @@ ev: (#A)#1     / eigenvectors for this eigenvalue
 iter:1 
 a:1            / boolean eigenvalues converges
 b:1            / boolean iter max reached.
+iterM:10000	   / iter max
 
 
-while[1<a+b; vN:A(+/*)\:v;el2:el;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;a:e < abs(el2-el);iter+:1;b:iter < 50];
+while[1<a+b; vN:A(+/*)\:v;el2:el;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;a:e < abs(el2-el);iter+:1;b:iter < iterM];
 ev:ev % sqrt(+/ev*ev);R:(ev;el);::R	
 
 ///To do
-1. while loop needs to check if solution converges.  Some matrices do not converge and are not suitable for powermethod. [DONE]
-2  Clean up code, to allow for a generic size symmetric matrix (DONE)
-3. Add code to return all eigenvalues eigenvectors.
-4. Add error message that this symmetric matrix has not converged by iter max.
-5. Test powermethod on various symmetric matrix sizes.
+
+1. Add code to return all eigenvalues eigenvectors.
+2. Add error message that this symmetric matrix has not converged by iter max.
+3. Test powermethod on various symmetric matrix sizes.
