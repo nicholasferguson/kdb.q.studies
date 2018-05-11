@@ -12,7 +12,7 @@ In a q session. Go to k
 variables:
 
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
-v: (#A)#1;v[0]:1
+v:1,1_(#A)#0
 vN:(#A)#10
 el: (#A)#1
 el2: 1
