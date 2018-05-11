@@ -1,4 +1,4 @@
-Example of power method for a 3X3 matrix.
+Initial study of power method for a 3X3 matrix.
 This returns dominant eigenvalue.
 Instructions:
 In a q session
