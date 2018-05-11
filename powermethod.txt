@@ -12,9 +12,9 @@ In a q session. Go to k
 
 Choose a matrix 3X3 
 A:((-1 2 -2);(-2 -6 3);(-2 -4 1))
-
+A:((7  1  1  7  4  1);(4  4  4  4  4  4);(1  7  7  1  4  7);(7  1  1  7  4  1);(4  4  4  4  4  4);(1  7  7  1  4  7));
 / variables:
-v:1,1_(#A)#0   / vector parameter used to compute eigenvalue
+v:0.1,1_(#A)#0   / vector parameter used to compute eigenvalue.  See that initial value is 1/10
 vN:(#A)#10     / vector parameter used to compute eigenvalue
 el: 2          / current eigenvalue
 el2: 1         / previous eigenvalue
@@ -27,10 +27,11 @@ iterM:10000	   / iter max
 
 
 while[1<a+b; vN:A(+/*)\:v;el2:el;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;a:e < abs(el2-el);iter+:1;b:iter < iterM];
-ev:ev % sqrt(+/ev*ev);R:(ev;el);::R	
+ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 
 ///To do
 
 1. Add code to return all eigenvalues eigenvectors.
 2. Add error message that this symmetric matrix has not converged by iter max.
 3. Test powermethod on various symmetric matrix sizes.
+4. Add code to prevent v and vN from having very large values.
