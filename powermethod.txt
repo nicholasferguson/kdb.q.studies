@@ -25,13 +25,14 @@ a:1            / boolean eigenvalues converges
 b:1            / boolean iter max reached.
 iterM:10000	   / iter max
 
-
+/ 3 lines of code.
 while[1<a+b; vN:A(+/*)\:v;el2:el;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;a:e < abs(el2-el);iter+:1;b:iter < iterM];
+$[iter=iterM;"Did not converge";"Converged"]
 ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 
 ///To do
 
 1. Add code to return all eigenvalues eigenvectors.
-2. Add error message that this symmetric matrix has not converged by iter max.
+2. Add error message that this symmetric matrix has not converged by iter max. DONE
 3. Test powermethod on various large symmetric matrix sizes. Ex: 1000x1000
 4. Add code to prevent v and vN from having very large values. i.e. at some stage, v:%vN
