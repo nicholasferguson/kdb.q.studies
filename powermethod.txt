@@ -27,7 +27,7 @@ iterM:10000	   / iter max
 
 / 3 lines of code.
 while[1<a+b; vN:A(+/*)\:v;el2:el;el:(+/vN*v) % (+/v*v);ev:vN % el xexp iter;v:vN;a:e < abs(el2-el);iter+:1;b:iter < iterM];
-$[iter=iterM;"Did not converge, Results are incorrect";"Converged in #iterations: ", $iter]
+$[iter=iterM;"Did not converge. Results are incorrect";"Converged in #iterations: ", $iter]
 ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 
 ///To do
