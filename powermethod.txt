@@ -33,6 +33,7 @@ ev:ev % sqrt(+/ev*ev);R:(ev;el);::R
 ///To do
 
 1. Add code to return all eigenvalues eigenvectors.
+	 Will have to replace current deflation method since it fails on finding 3rd eigenvector due to rounding off errors.
 2. Add error message that this symmetric matrix has not converged by iter max. DONE
 3. Test powermethod on various large symmetric matrix sizes. Ex: 1000x1000
 4. Add code to prevent v and vN from having very large values. i.e. at some stage, v:%vN
