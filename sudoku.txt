@@ -2,7 +2,7 @@
 This breaks down Whitney's solution to various steps.
 
 k)x:.:'"200370009009200007001004002050000800008000900006000040900100500800007600400089001"
-q)P,:3 sv floor(P:9 vs til 81)%3   // constant. index of puzzle by grid,column row
+q)P,:3 sv floor(P:9 vs til 81)%3   // constant. index of puzzle by row,grid,column. check by pt:flip P
 q)B:{[x]raze@{@[x;y;:;]each where 21=x[where(or)over P[;y]=P]?til 10}'}  // There are 9x9x9 positions where numbers 1 to 9 have to be unique. There are 3 cells common to all three.  We remove twice. 27-6=21.
 q)A:first(enlist x)B[x]/where not x   // This provides solution
 S:{A}
