@@ -1,3 +1,5 @@
+this is version 1.0
+
 Initial study of power method for a symmetrix matrix that returns dominant eigenvalue/eigenvector
 current model:   		symmetric matrix.  ( tested on some symmetric matrices )
 						checks for convergence
