@@ -1,10 +1,6 @@
 Goal:	  Study wj, which is a compact k code for joins measured by time intervals. 
-	  From its k code extract a series of subexpressions.
-	  By running all subexpressions its result equals running function wj.
-
-Summary:  wj calls ww
-          wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
-	  wj1 on the other hand takes specific time events. wj1[(time1;time1);....
+	  From its k code extract a series of subexpressions and variables.
+	  Finally call all subexpressions and verify its result equals calling function wj.
 
 Here is original code from q.k for functions ww, wj, wj1
 	/wj[-1000 2000+\:trade`time;`sym`time;trade;(quote;(max;`ask);(min;`bid))]  (given `sym`time xasc quote)
@@ -13,12 +9,17 @@ Here is original code from q.k for functions ww, wj, wj1
 
 	wj:{[w;f;y;z]ww[0 1;w;f;y;z]};
 	wj1:{[w;f;y;z]ww[1;w-1 0;f;y;z]}
+
+Note:  	  wj calls ww
+          wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
+	  wj1 on the other hand takes specific time events. wj1[(time1;time1);...
 ===================================================================
 Study:  Breakdown wj's ww into subexpressions, for study
 ===================================================================
-/ For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
-/ This was done to make initialized parameters passed to wwX easily tracked in its function body.
+/ For this study, renamed ww as wwX and changed parameter names from ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
+/ Renaming eased tracking parameters through its function body.
 / Below is wwX with carriage returns to identify function variables and subexpressions.
+/ We call subexpressions in this sequence: t1,t2,t3,t4,t5
 
 wwX:{[a;w;c;t;z]
 	c,:();							  
@@ -35,6 +36,7 @@ q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103
 
 
 / Note that in this study, many variables and subexpressions are in 'q)k)' space due to their syntax
+/ This study 
 
 / input into q console, these initialized variables normally passed to wj. 
 q)w:-2 1+\:t `time;
@@ -45,7 +47,7 @@ q)z:(q;(::;`ask);(::;`bid));
 / input into q console, a default parameter of ww function. 
 q)a:0 1;
 
-/ input into q console, wwX function body initialized variables 
+/ input into q console, variables from wwX's function body.
 q)c,:();
 q)k)e:+1_z;
 q)k)z:*z;
