@@ -1,6 +1,6 @@
-Goal:	  Study wj, which is a compact k code for joins measured by time intervals. 
-	  From its k code extract a series of subexpressions and variables.
-	  Finally call all subexpressions and verify its result equals calling function wj.
+Goal:	  + Study wj, which is a compact k code for joins measured by time intervals. 
+	  + From its k code extract a series of subexpressions and variables.
+	  + Finally call all subexpressions and verify its result equals calling function wj.
 
 Here is original code from q.k for functions ww, wj, wj1
 	/wj[-1000 2000+\:trade`time;`sym`time;trade;(quote;(max;`ask);(min;`bid))]  (given `sym`time xasc quote)
