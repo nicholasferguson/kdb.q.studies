@@ -55,6 +55,13 @@ q)k)z:*z;
 
 // input these wwX function body subexpressions as steps into q console
 q)k)t1:a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w
+
+		// sub sub expressions of t1 for study. 
+		// input only after proving subexpressions t1,t2,t3,t4,t5
+		q)k)t1a:((c#z)bin@[c#t;*|c;:;]@)
+		q)k)t1b:t1a'w
+		q)k)t1c:a+t1b
+
 q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // variable 'c' has two different value sets: `sym`time and `ask`bid.  
 // Renamed c as cX for `ask`bid...
