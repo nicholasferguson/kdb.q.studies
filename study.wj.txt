@@ -2,14 +2,21 @@ Summary:  wj calls ww
           wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
 	  wj1 on the other hand takes specific time events. wj1[(time1;time1);....
 
-Study:  Breakdown wj's ww into subexpressions as steps, for study
+from q.k
+	/wj[-1000 2000+\:trade`time;`sym`time;trade;(quote;(max;`ask);(min;`bid))]  (given `sym`time xasc quote)
 
+	ww:{[a;w;f;y;z]f,:();e:+1_z;z:*z;y,'+f!+{[e;d;a;b]e@'d@\:a+!b-a}[*e;z f:*|e]/'+$[#g;(g#z)?g#y;0]|/:a+$[#g:-1_f;(f#z)bin@[f#y;*|f;:;]@;z[*f]bin]'w}
+
+	wj:{[w;f;y;z]ww[0 1;w;f;y;z]};
+	wj1:{[w;f;y;z]ww[1;w-1 0;f;y;z]}
+
+Study:  Breakdown wj's ww into subexpressions as steps, for study
 
 Tables used for study: (copy and paste into q)
 q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
 q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
 
-/ For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to become:
+/ For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
 / This was done to make initialized parameters passed to wwX easily tracked in its function body.
 wwX:{[a;w;c;t;z]
 	c,:();
@@ -20,21 +27,23 @@ wwX:{[a;w;c;t;z]
 		a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;
 		z[*c]bin]'w}
 
-/ Breaking down wwX into subexpressions
+/ Breaking down wwX into subexpressions 
+/ Note that many variables and subexpressions are in 'q)k)' space
+/ For ease of copy/paste.... all are put into 'q)k)'
 
-/ input these initialized variables into q, passed to wwX
-k)a:0 1;
-k)w:-2 1+\:t `time;
-k)c:`sym`time;
+/ input into q console, these initialized variables to be passed to wwX
+q)k)a:0 1;
+q)k)w:-2 1+\:t `time;
+q)k)c:`sym`time;
 / note t is a table previously defined
-k)z:(q;(::;`ask);(::;`bid));
+q)k)z:(q;(::;`ask);(::;`bid));
 
-/ input additional initialized variables ( from wwX function body) into q
-k)c,:();
-k)e:+1_z;
-k)z:*z;
+/ input into q console, additional initialized variables ( from wwX function body) 
+q)k)c,:();
+q)k)e:+1_z;
+q)k)z:*z;
 
-// input these subexpression as steps into Q
+// input these subexpression as steps into q console
 q)k)t1:a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w
 q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // c has two different value sets: `sym`time and `ask`bid.  
