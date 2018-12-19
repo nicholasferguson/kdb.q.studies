@@ -12,10 +12,6 @@ from q.k
 
 Study:  Breakdown wj's ww into subexpressions as steps, for study
 
-Tables used for study: (copy and paste into q)
-q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
-q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
-
 / For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
 / This was done to make initialized parameters passed to wwX easily tracked in its function body.
 / Below is wwX with carriage returns to identify function variables and initial subexpressions.
@@ -32,11 +28,15 @@ wwX:{[a;w;c;t;z]
 / Note that many variables and subexpressions are in 'q)k)' space
 / For ease of copy/paste.... all are put into 'q)k)'
 
+Tables used for study: (copy and paste into q)
+q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
+q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
+
 / input into q console, these initialized variables to be passed to wwX
 q)k)a:0 1;
 q)k)w:-2 1+\:t `time;
 q)k)c:`sym`time;
-/ note t is a table previously defined
+/ note t and q are tables previously defined, above
 q)k)z:(q;(::;`ask);(::;`bid));
 
 / input into q console, additional initialized variables ( from wwX function body) 
