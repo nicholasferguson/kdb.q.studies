@@ -25,22 +25,22 @@ wwX:{[a;w;c;t;z]
 		z[*c]bin]'w}
 
 / Breaking down wwX into subexpressions 
-/ Note that many variables and subexpressions are in 'q)k)' space
-/ For ease of copy/paste.... all are put into 'q)k)'
+/ Note that many variables and subexpressions are in 'q)k)' space due to their syntax
+
 
 Tables used for study: (copy and paste into q)
 q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
 q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
 
 / input into q console, these initialized variables to be passed to wwX
-q)k)a:0 1;
+q)a:0 1;
 q)k)w:-2 1+\:t `time;
-q)k)c:`sym`time;
+q)c:`sym`time;
 / note t and q are tables previously defined, above
-q)k)z:(q;(::;`ask);(::;`bid));
+q)z:(q;(::;`ask);(::;`bid));
 
 / input into q console, wwX function body initialized variables 
-q)k)c,:();
+q)c,:();
 q)k)e:+1_z;
 q)k)z:*z;
 
