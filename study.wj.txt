@@ -57,7 +57,7 @@ q)k)z:*z;
 q)k)t1:a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w
 
 		// sub sub expressions of t1 for study. 
-		// input only after proving subexpressions t1,t2,t3,t4,t5
+		// play with only after proving subexpressions t1,t2,t3,t4,t5
 		q)k)t1a:((c#z)bin@[c#t;*|c;:;]@)
 		q)k)t1b:t1a'w
 		q)k)t1c:a+t1b
