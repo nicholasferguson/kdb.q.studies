@@ -15,6 +15,7 @@ Note:  	  wj calls ww
 	  wj1 on the other hand takes specific time events. wj1[(time1;time1);...
 ===================================================================
 Study:  Breakdown wj's ww into subexpressions, for study
+	This study requires input into a q console.
 ===================================================================
 / For this study, renamed ww as wwX and changed parameter names from ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
 / Renaming eased tracking parameters through its function body.
@@ -36,7 +37,7 @@ q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103
 
 
 / Note that in this study, many variables and subexpressions are in 'q)k)' space due to their syntax
-/ This study 
+
 
 / input into q console, these initialized variables normally passed to wj. 
 q)w:-2 1+\:t `time;
