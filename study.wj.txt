@@ -18,6 +18,7 @@ q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103
 
 / For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
 / This was done to make initialized parameters passed to wwX easily tracked in its function body.
+/ Below is wwX with carriage returns to identify function variables and initial subexpressions.
 wwX:{[a;w;c;t;z]
 	c,:();
 	e:+1_z;
