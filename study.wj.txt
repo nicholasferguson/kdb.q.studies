@@ -1,43 +1,49 @@
+Goal:	  Study wj, which is a compact k code for joins measured by time intervals. 
+	  From its k code extract a series of subexpressions.
+	  By running all subexpressions its result equals running function wj.
+
 Summary:  wj calls ww
           wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
 	  wj1 on the other hand takes specific time events. wj1[(time1;time1);....
 
-from q.k
+Here is original code from q.k for functions ww, wj, wj1
 	/wj[-1000 2000+\:trade`time;`sym`time;trade;(quote;(max;`ask);(min;`bid))]  (given `sym`time xasc quote)
 
 	ww:{[a;w;f;y;z]f,:();e:+1_z;z:*z;y,'+f!+{[e;d;a;b]e@'d@\:a+!b-a}[*e;z f:*|e]/'+$[#g;(g#z)?g#y;0]|/:a+$[#g:-1_f;(f#z)bin@[f#y;*|f;:;]@;z[*f]bin]'w}
 
 	wj:{[w;f;y;z]ww[0 1;w;f;y;z]};
 	wj1:{[w;f;y;z]ww[1;w-1 0;f;y;z]}
-
-Study:  Breakdown wj's ww into subexpressions as steps, for study
-
+===================================================================
+Study:  Breakdown wj's ww into subexpressions, for study
+===================================================================
 / For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to wwX:{[a;w;c;t;z]...}
 / This was done to make initialized parameters passed to wwX easily tracked in its function body.
-/ Below is wwX with carriage returns to identify function variables and initial subexpressions.
+/ Below is wwX with carriage returns to identify function variables and subexpressions.
+
 wwX:{[a;w;c;t;z]
-	c,:();
-	e:+1_z;
+	c,:();							  
+	e:+1_z;							   
 	z:*z;
-	t,'+c!+{[e;d;a;b]e@'d@\:a+!b-a}[*e;z c:*|e]/'
-		+$[#g;(g#z)?g#t;0]|/:
-		a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;
-		z[*c]bin]'w}
+	t,'+c!+{[e;d;a;b]e@'d@\:a+!b-a}[*e;z c:*|e]/'		  / subexpression t3,t4,t5
+		+$[#g;(g#z)?g#t;0]|/:				  / subexpression t2
+		a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w    / subexpression t1
+    }
 
-/ Breaking down wwX into subexpressions 
-/ Note that many variables and subexpressions are in 'q)k)' space due to their syntax
-
-
-Tables used for study: (copy and paste into q)
+Tables used for study: (copy and paste into q console)
 q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
 q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
 
-/ input into q console, these initialized variables to be passed to wwX
-q)a:0 1;
-q)k)w:-2 1+\:t `time;
+
+/ Note that in this study, many variables and subexpressions are in 'q)k)' space due to their syntax
+
+/ input into q console, these initialized variables normally passed to wj. 
+q)w:-2 1+\:t `time;
 q)c:`sym`time;
 / note t and q are tables previously defined, above
 q)z:(q;(::;`ask);(::;`bid));
+
+/ input into q console, a default parameter of ww function. 
+q)a:0 1;
 
 / input into q console, wwX function body initialized variables 
 q)c,:();
@@ -63,7 +69,7 @@ aapl 09:30:08 99    105 103 102     103 100 100
 
 // For verification.....
 
-q)k)w:-2 1+\:t `time;
+q)w:-2 1+\:t `time;
 q)c:`sym`time;
 q)z:(q;(::;`ask);(::;`bid));
 q)wj[w;c;t;z]
