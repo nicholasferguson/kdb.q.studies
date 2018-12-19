@@ -1,12 +1,16 @@
 Summary:  wj calls ww
-Study:  Breakdown ww into steps, for study
+          wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
+	  wj1 on the other hand takes specific time events. wj1[(time1;time1);....
+
+Study:  Breakdown wj's ww into steps, for study
 
 
 Tables used for study: (copy and paste into q)
 q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
 q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
 
-/ Renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} becomes:
+/ For this study, renamed ww as wwX and changed parameter names ww:{[a;w;f;y;z]...} to become:
+/ This was done to make initialized parameters passed to wwX easily tracked in its function body.
 wwX:{[a;w;c;t;z]
 	c,:();
 	e:+1_z;
@@ -16,16 +20,21 @@ wwX:{[a;w;c;t;z]
 		a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;
 		z[*c]bin]'w}
 
-/ input these variables into q
+/ Breaking down wwX into subexpressions
+
+/ input these initialized variables into q, passed to wwX
 k)a:0 1;
 k)w:-2 1+\:t `time;
 k)c:`sym`time;
+/ note t is a table previously defined
 k)z:(q;(::;`ask);(::;`bid));
+
+/ input additional initialized variables ( from wwX function body) into q
 k)c,:();
 k)e:+1_z;
 k)z:*z;
 
-// input these steps into Q
+// input these subexpression as steps into Q
 q)k)t1:a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w
 q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // c has two different value sets: `sym`time and `ask`bid.  
