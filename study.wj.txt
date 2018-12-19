@@ -2,7 +2,7 @@ Summary:  wj calls ww
           wj has a parameter w which takes measurable time intervals. wj[(time1;time2);....
 	  wj1 on the other hand takes specific time events. wj1[(time1;time1);....
 
-Study:  Breakdown wj's ww into steps, for study
+Study:  Breakdown wj's ww into subexpressions as steps, for study
 
 
 Tables used for study: (copy and paste into q)
