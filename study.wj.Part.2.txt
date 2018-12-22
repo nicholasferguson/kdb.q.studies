@@ -1,0 +1,98 @@
+// Part 2 studies the subexpressions from Part 1.
+// Before you start Part 2, you should have proved that t1,t2,t3,t4,t5 yield same result as wj.
+/------------------------------------------------------------------
+/ preliminaries...
+/------------------------------------------------------------------
+
+/ These are the inputs needed for this section.
+Tables used for study: (copy and paste into q console)
+q)show t:([]sym:4#`aapl;time:09:30:01 09:30:04 09:30:05 09:30:08;price:100 103 101 99);
+q)show q:([] sym:8#`aapl;time:09:30:01+(til 5),7 8 9;ask:101 103 103 104 105 103 102 100;bid:98 99 102 103 103 100 100 99);
+
+
+/ input into q console, these initialized variables normally passed to wj. 
+q)w:-2 1+\:t `time;
+q)c:`sym`time;
+/ note t and q are tables previously defined, above
+q)z:(q;(::;`ask);(::;`bid));
+
+/ input into q console, a default parameter of ww function. 
+q)a:0 1;
+
+/ input into q console, variables from wwX's function body.
+q)c,:();
+q)k)e:+1_z;
+q)k)z:*z;
+/------------------------------------------------------------------
+// subexpression t1.
+/------------------------------------------------------------------
+q)k)t1:a+$[#g:-1_c;(c#z)bin@[c#t;*|c;:;]@;z[*c]bin]'w
+
+		// sub sub expressions of t1 for study. 
+		// play with only after proving subexpressions t1,t2,t3,t4,t5
+		// This sub sub expression takes time values from w, creates a table using table t then
+		// searches for those values in table q, using bin.  bin finds last y in x where x < y or x = y.
+		// then returns indices in q for those w values.  Note w values are from table t.w-1
+		q)k)t1a:((c#z)bin@[c#t;*|c;:;]@)'w   / if #g:-1_c then evaluate true  $[conditional;true;false]
+		q)k)t1a1:@[c#t;*|c;:;]@'w            / amend expression, this formats variable 'w' to work with bin against c#z
+		q)k)t1a2:(((c#z)bin bb[0]);((c#z)bin bb[1]))   / in t1a, this is done by invoked using syntax of (<>)'w.
+		q)k)a+t1a2
+		  1 2 4
+		1 4 4 6
+/------------------------------------------------------------------
+// subexpression t2.
+/------------------------------------------------------------------
+/ find indices of g#t in g#z then these indices are a max that replaces any 'less then' in t1
+/ Then we flip it.
+q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1  
+q)t2
+0 2
+1 5
+2 5
+4 7
+
+/------------------------------------------------------------------
+// subexpression t3, t4 and t5
+/------------------------------------------------------------------
+// variable 'c' has two different value sets: `sym`time and `ask`bid.  
+// Renamed c as cX for `ask`bid...
+q)k)cX:*|e
+q)k)t3:{[e;a;z]{[e;d;a;b]e@'d@\:a+!b-a}[*e;z cX]}
+q)k)t4:t3[e;a;z]/'t2
+q)k)t5:t,'+cX!+t4
+q)t5
+sym  time     price ask             bid
+--------------------------------------------------
+aapl 09:30:01 100   101 103         98 99
+aapl 09:30:04 103   103 103 104 105 99 102 103 103
+aapl 09:30:05 101   103 104 105     102 103 103
+aapl 09:30:08 99    105 103 102     103 100 100
+
+// For verification.....
+
+q)w:-2 1+\:t `time;
+q)c:`sym`time;
+q)z:(q;(::;`ask);(::;`bid));
+q)wj[w;c;t;z]
+sym  time     price ask             bid
+--------------------------------------------------
+aapl 09:30:01 100   101 103         98 99
+aapl 09:30:04 103   103 103 104 105 99 102 103 103
+aapl 09:30:05 101   103 104 105     102 103 103
+aapl 09:30:08 99    105 103 102     103 100 100
+
+
+// For a quick look at wj1
+q)z:(q;(::;`ask);(::;`bid));
+q)wj1[(t.time;t.time);c;t;z]
+sym  time     price ask bid
+---------------------------
+aapl 09:30:01 100   101 98
+aapl 09:30:04 103   104 103
+aapl 09:30:05 101   105 103
+aapl 09:30:08 99    103 100
+
+
+
+
+
