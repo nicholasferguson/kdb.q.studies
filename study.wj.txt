@@ -67,9 +67,10 @@ q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // Renamed c as cX for `ask`bid...
 // variable 'a' in t3 is not a in t1. 
 // in t3, variables 'a' and 'b' take values from t2, see t4.
+// So renamed variables 'a' and 'b' to 'aa' and 'bb' in subexpression t3
 
 q)k)cX:*|e
-q)k)t3:{[e;z]{[e;d;a;b]e@'d@\:a+!b-a}[*e;z cX]}
+q)k)t3:{[e;z]{[e;d;aa;bb]e@'d@\:aa+!bb-aa}[*e;z cX]}
 q)k)t4:t3[e;z]/'t2
 q)k)t5:t,'+cX!+t4
 q)t5
