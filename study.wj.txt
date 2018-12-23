@@ -66,7 +66,7 @@ q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // variable 'c' has two different value sets: `sym`time and `ask`bid.  
 // Renamed c as cX for `ask`bid...
 // variable 'a' in t3 is not a in t1. 
-// in t3, variables 'a' and 'b' take values from t2.
+// in t3, variables 'a' and 'b' take values from t2, see t4.
 
 q)k)cX:*|e
 q)k)t3:{[e;z]{[e;d;a;b]e@'d@\:a+!b-a}[*e;z cX]}
