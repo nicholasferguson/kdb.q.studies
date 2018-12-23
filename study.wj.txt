@@ -66,8 +66,8 @@ q)k)t2:+$[#g;(g#z)?g#t;0]|/:t1
 // variable 'c' has two different value sets: `sym`time and `ask`bid.  
 // Renamed c as cX for `ask`bid...
 q)k)cX:*|e
-q)k)t3:{[e;a;z]{[e;d;a;b]e@'d@\:a+!b-a}[*e;z cX]}
-q)k)t4:t3[e;a;z]/'t2
+q)k)t3:{[e;z]{[e;d;a;b]e@'d@\:a+!b-a}[*e;z cX]}
+q)k)t4:t3[e;z]/'t2
 q)k)t5:t,'+cX!+t4
 q)t5
 sym  time     price ask             bid
