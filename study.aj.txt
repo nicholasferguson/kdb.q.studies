@@ -1,0 +1,115 @@
+//-- Original code from q.k ---------------------------------------------
+v:{$[-11h=@x;.$[":"=*t:$x;`$t,"/";x];x]};
+ff:{$[&/(!+y)in f:!+x;x;x,'(f_y)(#x)#0N]}
+ft:{$[$[99h=@t:v y;98h=@. t;0];[n:#+!y;n!x 0!y];x y]};
+aj:   {.Q.ft[{d:x_z;$[&/j:-1<i:(x#z)bin  x#y;y,'d i;+.[+.Q.ff[y]d;(!+d;j);:;.+d i j:&j]]}[x,();;0!z]]y}
+aj0:  {.Q.ft[{d: z; $[&/j:-1<i:(x#z)bin  x#y;y,'d i;+.[+.Q.ff[y]d;(!+d;j);:;.+d i j:&j]]}[x,();;0!z]]y}
+
+//-- Additional version of aj that replaces bin with binr
+k)ajr:{.Q.ft[{d:x_z;$[&/j:-1<i:(x#z)binr x#y;y,'d i;+.[+.Q.ff[y]d;(!+d;j);:;.+d i j:&j]]}[x,();;0!z]]y}
+===================================================
+study.  Improve readibility of above functions, for this study. 
+		Rename so we can input into q console.
+===================================================
+// dot in vX is no op.
+k)vX:{[x]$[-11h=@x;.$[":"=*t:$x;`$t,"/";x];x]};  				 / if char array, check it.
+k)ffX:{[x;y]$[&/(!+y)in f:!+x;x;x,'(f_y)(#x)#0N]};  			 / Appends columns of null values, to a table.
+k)ftX:{[x;y]$[$[99h=@t:vX y;98h=@. t;0];[n:#+!y;n!x 0!y];x y]};  / Applys a function to a table.
+k)ajX:{[x;y;z]ftX[{[x;y;z]d:x_z;$[&/j:-1<i:(x#z)bin x#y;y,'d i;+.[+ffX[y]d;(!+d;j);:;.+d i j:&j]]}[x,();;0!z]]y};
+===================================================
+study.  ajX
+===================================================
+parameters to ajX:
+/ x is field(s)
+/ y is table to be appended to
+/ z is table that gets appended to y
+
+k)ajX:{[x;y;z]
+	ftX[     / This method converts the keyed table 'y' to a non keyed table, applies the function 'x' to it , then converts 'y' back to keyed table. 
+			 / Function 'x' of ftX is between first set of curlies.
+		{[x;y;z]													/ Start of function passed to ftX
+			d:x_z; 													/ remove field x from z, assign result to d
+			$[&/j:-1<i:(x#z)bin x#y;								/Conditional  for parameter of fields 'x' to ftX. Is x is in both y and z?
+				y,'d i;												/true .  Append each d at i to y. 
+				+.[+ffX[y]d;(!+d;j);:;.+d i j:&j]					/false ff - Appends columns to a table with null values.<TBD>
+			  ]}[x,();;0!z]											/ enlist fields; remove keys from z
+		]y}															/ ftX[x]y  y has keys removed for x to operate.
+		
+===================================================
+study.  	ftX
+			The method converts the keyed table 'y' to a simple table, 
+			applies the function 'x' , then converts 'y' back to keyed. 
+===================================================
+k)ftX:{[x;y]$[$[99h=@t:vX y;98h=@. t;0];[n:#+!y;n!x 0!y];x y]};
+
+k)ftX:{[x;y]
+	$[
+		$[99h=@t:vX y;98h=@. t;0];    // runs vX.  Then tests if dict or table. 
+		[n:#+!y;n!x 0!y];			  // capture keys of 'y' to n. remove keys from 'y',apply function 'x' to 'y', then reassign 'n' keys
+	x y]};
+
+ex:
+\l sp.q  s is a keyed table. so q)s 2 3 will not work.
+q)).Q.ft[{x 2 3};s]   
+/ example in k code...
+q)k)1!{x 2 3}0!s    / Remove key, apply function, then apply key
+s | name  status city
+--| -------------------
+s3| blake 30     paris
+s4| clark 20     london
+===================================================
+study.  	ffX
+			Appends columns to a table with null values.
+===================================================
+k)ffX:{[x;y]$[&/(!+y)in f:!+x;x;x,'(f_y)(#x)#0N]};  
+x - table
+y - fields as a list, to append to table with null values.
+
+sample data
+t:flip`sym`time`price`size!10?'(`3;.z.t;1000f;10000)
+tt1: enlist `sym`a`b!3#1
+
+code studies:
+
+Note: 	
+tt:enlist <dict>   
+type tt
+98h
+
+q)k)$[&/(!+tt1) in f:!+t;t;t,'(f_tt1)(#t)#0N]
+
+	q)k)e:(!+tt1)  / extracts column names from table tt1
+	`sym`a`b
+	q)k)f:!+t      / extracts column names from table t
+	q)f
+	`time`sym`price`size
+
+	- Conditional step.  Check that x and y are not the same table.
+	$[&/(!+y)in f:!+x;x;x,'(f_y)(#x)#0N]  
+	&/(!+y)in f:!+x / returns false if y does not match x. it doesn't care if x or y are independent sets.
+
+	x,'(f_y)(#x)#0N
+
+t:flip`sym`time`price`size!10?'(`3;.z.t;1000f;10000)
+q).Q.ff[t] enlist `sym`ratioA`ratioB!3#1
+
+===================================================
+study.  	ajX
+			Examples
+===================================================
+	
+t1:([]sym: 2 3 4 6 7 8; z: 100 200 300 400 500 600);
+t2:([]sym: 2 3 4 6 7 8; y: 100 200 300 400 500 600);
+
+similar to: 
+q)select from t1 & t2 where t1.sym = t2.sym
+
+q)k)ajX[`sym;t1;t2]
+sym z   y
+-----------
+2   100 100
+3   200 200
+4   300 300
+6   400 400
+7   500 500
+8   600 600
